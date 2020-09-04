@@ -1,0 +1,16 @@
+.nav,
+.main {
+  height: 100%;
+  overflow: auto;
+}
+
+.nav {
+  background-color: #fff;
+  margin-right: 10px;
+  width: 300px;
+}
+
+.main {
+  background-color: #fff;
+  flex: 1;
+}
