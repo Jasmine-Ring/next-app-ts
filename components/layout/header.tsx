@@ -1,7 +1,7 @@
 
 
 import styles from '~/styles/layout/index.module.scss'
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { Layout, Menu, Dropdown } from 'antd'
 import { HomeOutlined, BarsOutlined, DatabaseOutlined, DownOutlined} from '@ant-design/icons'
@@ -13,6 +13,7 @@ const { SubMenu } = Menu
 export default function LayoutHeader () {
   const globalContext: any = useContext(GlobalContext)
   const router = useRouter()
+  const { route } = router
 
   const handleUserMenuClick = (e: any) => {
     console.log(e)
@@ -44,9 +45,14 @@ export default function LayoutHeader () {
     </Menu>
   )
 
+  useEffect(() => {
+    const activeMenu = route.substring(1) || 'index'
+    globalContext.dispatch(setActiveMenu(activeMenu))
+  }, [])
+
   return (
     <Header className={styles.header}>
-      <Menu mode="horizontal" theme="dark" onClick={handleMenuClick} defaultSelectedKeys={[globalContext.indexState.activeMenu]} style={{flex: 1}}>
+      <Menu mode="horizontal" theme="dark" onClick={handleMenuClick} selectedKeys={[globalContext.indexState.activeMenu]} style={{flex: 1}}>
         <Menu.Item key="index"><HomeOutlined />首页</Menu.Item>
         <SubMenu title="标准" icon={<BarsOutlined />}>
           <Menu.Item key="basic">基础标准</Menu.Item>

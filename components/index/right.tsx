@@ -4,51 +4,48 @@ import React, { useContext, useState, useEffect } from 'react'
 import { Table, Radio, Divider, Modal, Button } from 'antd'
 import API from '~/utils/http'
 import { RadioChangeEvent } from 'antd/lib/radio'
+import { setLoading } from '~/action'
+import { ColumnsType } from 'antd/lib/table'
 const usersEndpoint = '/users'
 const userDetailEndpoint = '/user-detail'
 
-interface User {
+export interface User {
   key: string
   name: string
   age: number | null
   address: string
 }
 
-interface TableInfo {
-  total: number
-  list: Array<User>
-}
-
 export default function IndexRightPage() {
   const globalContext: any = useContext(GlobalContext)
   const {indexState: {curTreeDataItem}} = globalContext
-  const [users, setUsers] = useState([])
-  const [detailInfo, setDetailInfo] = useState({
-    key: '',
-    name: '',
-    age: null,
-    address: ''
-  })
+  const [users, setUsers] = useState<User[]>([])
+  const [detailInfo, setDetailInfo] = useState<User>()
   const [detailModel, setDetailModel] = useState({
     title: '',
     visible: false,
   })
   const showDetail = async (record: User) => {
-    const { data } = await API.post(userDetailEndpoint, {key: record.key})
+    globalContext.dispatch(setLoading(true))
+    const { data } = await API.post(userDetailEndpoint, {key: record.key}).catch((e: Error) => {
+      globalContext.dispatch(setLoading(false))
+    })
+    globalContext.dispatch(setLoading(false))
     setDetailInfo(data)
     setDetailModel({
       title: `${data.name}基本信息`,
       visible: true
     })
   }
-  const [columns, setColumns] = useState([
+
+  const columns: ColumnsType<User> = [
     {title: '姓名', dataIndex: 'name', key: 'name', render: (text: string, record: User)=> <a onClick={() =>showDetail(record)}>{record.name}</a>},
     {title: '年龄', dataIndex: 'age', key: 'age'},
     {title: '住址', dataIndex: 'address', key: 'address'}
-  ])
+  ]
+
   const [selectionType, setSelectionType] = useState() // checkbox
   const [selectedRows, setSelectedRows] = useState([])
-  const [loading, setLoading] = useState(false)
   const [pagination, setPagination] = useState({
     total: 6,
     current: 1,
@@ -72,9 +69,11 @@ export default function IndexRightPage() {
   }
   // @ts-ignore
   const getTableData = async (pagination) => {
-    setLoading(true)
-    const {data: {total, list, current}} = await API.post(usersEndpoint, pagination)
-    setLoading(false)
+    globalContext.dispatch(setLoading(true))
+    const {data: {total, list, current}} = await API.post(usersEndpoint, pagination).catch((e: Error) => {
+      globalContext.dispatch(setLoading(false))
+    })
+    globalContext.dispatch(setLoading(false))
     setPagination({
       ...pagination,
       total,
@@ -95,7 +94,7 @@ export default function IndexRightPage() {
   }, [])
 
   return (
-    <div className={styles.container}>IndexRightPage
+    <div className={styles.container}>
       {curTreeDataItem?.title}
       <p>已选中{selectedRows.length}条数据</p>
       <div>
@@ -104,7 +103,7 @@ export default function IndexRightPage() {
           <Radio value="radio">radio</Radio>
         </Radio.Group>
         <Divider/>
-        <Table loading={loading} rowSelection={{type: selectionType, ...rowSelection}} dataSource={users} columns={columns} pagination={pagination} onChange={getTableData}/>
+        <Table<User> rowSelection={{type: selectionType, ...rowSelection}} dataSource={users} columns={columns} pagination={pagination} onChange={getTableData}/>
       </div>
       <Modal {...detailModel} onCancel={handleDetailModalOk} footer={[
         <Button key="ok" onClick={handleDetailModalOk}>确定</Button>,

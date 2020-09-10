@@ -1,6 +1,7 @@
 import * as Types from '~/types/types'
 
 export const defaultState = {
+  loading: false,
   activeMenu: 'index',
   username: 'admin',
   password: 'admin',
@@ -10,6 +11,11 @@ export const defaultState = {
 
 const reducerGlobal = (state: any, action: any) => {
   switch(action.type) {
+    case Types.SET_LOADING:
+    return {
+      ...state,
+      loading: action.loading
+    }
     case Types.SET_ACTIVE_MENU:
       return {
         ...state,

@@ -25,3 +25,9 @@ export const setCurTreeDataItem = (curTreeDataItem: TreeDataItem) => ({
   type: Types.SET_CUR_TREE_DATA_ITEM,
   curTreeDataItem,
 })
+
+
+export const setLoading = (loading: boolean) => ({
+  type: Types.SET_LOADING,
+  loading,
+})

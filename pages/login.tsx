@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { LoginUser, setLoginUser } from '~/action/index'
+import { LoginUser, setLoginUser } from '~/action'
 import styles from '~/styles/Login.module.scss'
 import { useRouter } from 'next/router'
 import {Form, Input, Button, Checkbox, message} from 'antd'
