@@ -39,8 +39,15 @@
 }
 
 .footer {
-  // background-color: #fff;
   text-align: center;
   padding-top: 18px;
   padding-bottom: 18px;
+}
+
+.test {
+  max-height: none !important;
+
+  span {
+    font-size: 40px !important;
+  }
 }

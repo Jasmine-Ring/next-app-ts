@@ -13,7 +13,7 @@ export default function IndexPage (props: any) {
   const globalContext: any = useContext(GlobalContext)
 
   return (
-    <Spin size="large" spinning={globalContext.indexState.loading} indicator={antIcon}>
+    <Spin className={styles.test} spinning={globalContext.indexState.loading} indicator={antIcon}>
       <Layout className={styles.container}>
         <LayoutHeader/>
         <Content style={{padding: '0 50px'}} className={styles.content}>
