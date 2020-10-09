@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import {Form, Input, Button, Checkbox, message} from 'antd'
 import { GlobalContext } from '~/pages/_app'
 
-export default function LoginPage () {
+const LoginPage: React.FC = () => {
   const globalContext: any = useContext(GlobalContext)
 
   const router = useRouter()
@@ -55,3 +55,5 @@ export default function LoginPage () {
     </div>
   )
 }
+
+export default LoginPage

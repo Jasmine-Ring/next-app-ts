@@ -10,7 +10,7 @@ import { setActiveMenu } from '~/action'
 const { Header } = Layout
 const { SubMenu } = Menu
 
-export default function LayoutHeader () {
+const LayoutHeader:React.FC = () => {
   const globalContext: any = useContext(GlobalContext)
   const router = useRouter()
   const { route } = router
@@ -67,3 +67,5 @@ export default function LayoutHeader () {
     </Header>
   )
 }
+
+export default LayoutHeader

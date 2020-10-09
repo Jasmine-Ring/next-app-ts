@@ -3,7 +3,7 @@ import IndexLeft from '~/components/index/left'
 import IndexRight from '~/components/index/right'
 import LayoutDefault from '~/components/layout'
 
-export default function IndexPage () {
+const IndexPage: React.FC = () => {
   return (
     <LayoutDefault>
       <div className={styles.nav}>
@@ -15,3 +15,5 @@ export default function IndexPage () {
     </LayoutDefault>
   )
 }
+
+export default IndexPage

@@ -16,7 +16,7 @@ interface TabsData {
   key: string
 }
 
-export default function AuditPage (){
+const AuditPage: React.FC = () => {
   const globalContext: any = useContext(GlobalContext)
   const [activeKey, setActiveKey] = useState<string>('todo')
   const tabs: TabsData[] = [
@@ -105,3 +105,5 @@ export default function AuditPage (){
     </LayoutDefault>
   )
 }
+
+export default AuditPage

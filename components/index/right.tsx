@@ -16,15 +16,22 @@ export interface User {
   address: string
 }
 
-export default function IndexRightPage() {
+interface DetailModel {
+  title?: string
+  visible: boolean
+}
+
+enum SelectionType {
+  CHECKBOX = "checkbox",
+  RADIO = "radio"
+}
+
+const IndexRightPage: React.FC = () => {
   const globalContext: any = useContext(GlobalContext)
   const {indexState: {curTreeDataItem}} = globalContext
   const [users, setUsers] = useState<User[]>([])
   const [detailInfo, setDetailInfo] = useState<User>()
-  const [detailModel, setDetailModel] = useState({
-    title: '',
-    visible: false,
-  })
+  const [detailModel, setDetailModel] = useState<DetailModel>()
   const showDetail = async (record: User) => {
     globalContext.dispatch(setLoading(true))
     const { data } = await API.post(userDetailEndpoint, {key: record.key}).catch((e: Error) => {
@@ -44,7 +51,7 @@ export default function IndexRightPage() {
     {title: '住址', dataIndex: 'address', key: 'address'}
   ]
 
-  const [selectionType, setSelectionType] = useState() // checkbox
+  const [selectionType, setSelectionType] = useState<SelectionType>(SelectionType.CHECKBOX) // checkbox
   const [selectedRows, setSelectedRows] = useState([])
   const [pagination, setPagination] = useState({
     total: 6,
@@ -115,3 +122,5 @@ export default function IndexRightPage() {
     </div>
   )
 }
+
+export default IndexRightPage

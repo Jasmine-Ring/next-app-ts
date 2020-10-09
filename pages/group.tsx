@@ -1,9 +1,11 @@
 import LayoutDefault from '~/components/layout'
 
-export default function GroupPage (){
+const GroupPage = () => {
   return (
     <LayoutDefault>
       <div>group</div>
     </LayoutDefault>
   )
 }
+
+export default GroupPage

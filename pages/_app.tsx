@@ -9,7 +9,7 @@ import zhCN from 'antd/lib/locale/zh_CN'
 export const GlobalContext = React.createContext({})
 
 // @ts-ignore
-export default function MyApp({ Component, pageProps }) {
+const MyApp: React.FC<{}> = ({ Component, pageProps }) => {
   const router = useRouter()
   const [indexState, indexDispatch] = useReducer(index, defaultState)
   useEffect(() => {
@@ -34,3 +34,5 @@ export default function MyApp({ Component, pageProps }) {
   // return <Component {...pageProps} />
   
 }
+
+export default MyApp

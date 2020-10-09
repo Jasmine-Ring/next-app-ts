@@ -5,7 +5,7 @@ import { GlobalContext } from '~/pages/_app'
 import { setCurTreeDataItem, TreeDataItem, setLoading } from '~/action'
 import API from '~/utils/http'
 
-export default function IndexLeftPage() {
+const IndexLeftPage: React.FC = () => {
   const globalContext: any = useContext(GlobalContext)
 
   const [expandedKeys, setExpandedKeys] = useState<string[]>([])
@@ -50,3 +50,5 @@ export default function IndexLeftPage() {
     </div>
   )
 }
+
+export default IndexLeftPage

@@ -1,9 +1,11 @@
 import LayoutDefault from '~/components/layout'
 
-export default function StatisticPage (){
+const StatisticPage: React.FC = () =>{
   return (
     <LayoutDefault>
       <div>statistic</div>
     </LayoutDefault>
   )
 }
+
+export default StatisticPage
